@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 60px;
+        }
+        .heading{
+            background-color: bisque;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .start_button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .stop_button {
+            background-color: #0f656b;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 10px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <div class="heading">
+            <h4>Automatic Speech Recognition</h4>
+        </div>
+        <div style="display:flex;">
+            <button class="start_button" id="button" onclick="sendMsg()">Start</button>
+            <button class="stop_button" id="button" onclick="stopMsg()">Stop</button>
+        </div>
+       
+        <textarea id="output" name="text" rows="15" cols="60"></textarea>
+    </div>
+</body>
+<script>
+    // let text = ""
+    // const socket = new WebSocket('ws://localhost:8081');
+    // const socket = new WebSocket('http://127.0.0.1:8000');
+    const sendMsg = () => {
+        // let text = ""
+        // const socket = new WebSocket('ws://127.0.0.1:8000');
+        const socket = new WebSocket('ws://127.0.0.1:8000');
+        // socket.send('Hello from Client!');
+    socket.addEventListener('open', function (event) {
+        console.log('Connected to the WS Server!')
+    });
+
+    
+
+    socket.addEventListener('message', function (event) {
+        // console.log('Message from server ', event.data);
+        // text = text + event.data
+        // event.data+=event.data
+        // document.getElementById("output").append(event.data)
+
+        document.getElementById("output").value = event.data
+    });  
+        // socket.send('Hello from Client!');
+    }
+    const stopMsg = () => {
+        socket.addEventListener('close', function (event) {
+        console.log('Disconnected from the WS Server!')
+    });
+    }
+</script>
+</html>
+
+
